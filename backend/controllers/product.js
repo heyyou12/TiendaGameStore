@@ -22,7 +22,7 @@ const registerProduct = async (req, res) => {
 
 const listProduct = async (req, res) => {
 
-    const product = await Product.find();
+    const product = await Product.find({name: new RegExp(req.params["name"],"i")});
     if(!product || product.length === 0) return res.status(401).send("No product");
     return res.status(200).send({product})
 

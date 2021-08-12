@@ -7,12 +7,12 @@ const userSchema = mongoose.Schema({
     name: String,
     email: String,
     password:String,
-    date: {type: Date, default: Date.new},
+    date: {type: Date, default: Date.now},
     dbStatus: Boolean
 
-})
+});
 
- userSchema.methods.generateJWT() = function () {
+ userSchema.methods.generateJWT = function () {
      return jwt.sign({
          _id: this._id,
          name:this.name,
@@ -23,4 +23,4 @@ const userSchema = mongoose.Schema({
  };
 
 const user = mongoose.model("user", userSchema);
-module.exports = {user};
+module.exports = user;
