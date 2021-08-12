@@ -11,4 +11,4 @@ const saleSchema = mongoose.Schema({
 })
 
 const sale = mongoose.model("sale",saleSchema);
-module.exports = {sale};
+module.exports = sale;
