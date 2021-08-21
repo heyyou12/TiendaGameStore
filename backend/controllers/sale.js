@@ -1,6 +1,7 @@
 const Sale = require("../models/sale");
 const Product = require("../models/product");
 const User = require("../models/user");
+const product = require("../models/product");
 
 const registerSale = async (req, res) => {
 
@@ -9,10 +10,18 @@ const registerSale = async (req, res) => {
     let existingId = await Sale.findOne({_id:Sale._id});
     if(existingId) return res.status(401).send("process failed: the sale is already register");
 
+    // let  user= await User.findOne({name: "Manuel"});
+    // if(!user) return res.status(400).send("process failed: no user was assigned");
+
+    // let product = await Product.findOne({name: "Battlefield"});
+    // if(!product)return res.status(400).send("process failed: no product was assigned");
+
+
+
     let sale = new Sale({
 
-        idProduct: Product._id,
-        idUser: User._id,
+        idProduct: req.body.idProduct,
+        idUser: req.body.idUser,
         price: req.body.price,
         dbStatus: true,
     });
@@ -25,9 +34,11 @@ const registerSale = async (req, res) => {
 
 const listSale = async (req,res) => {
 
-    let sale = await Sale.find();
-    if(!sale || sale.length === 0) return res.status(401).send("No sale").populate("idProducto").exec();
+    let sale = await Sale.find().populate('idUser',{_id:0,name:1, email:1}).populate("idProduct",{_id:0}).exec();
+    if(!sale || sale.length === 0) return res.status(401).send("No sale");
     return res.status(200).send({sale});
 }
 
 module.exports = {registerSale,listSale};
+
+

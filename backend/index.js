@@ -5,6 +5,7 @@ const Product = require("./routes/product");
 const User = require("./routes/user");
 const Stock = require("./routes/stock");
 const Sale = require("./routes/sale");
+const Auth = require("./routes/auth");
 require("dotenv").config();
 
 const app = express();
@@ -15,6 +16,7 @@ app.use("/api/product",Product);
 app.use("/api/user",User);
 app.use("/api/stock", Stock);
 app.use("/api/sale", Sale);
+app.use("/api/auth",Auth);
 
 app.listen(process.env.PORT,()=> console.log("server running through port on", process.env.PORT));
 
